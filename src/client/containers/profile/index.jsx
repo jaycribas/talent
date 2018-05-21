@@ -8,20 +8,21 @@ import TalentNavbar from '../../components/talentNavbar';
 import './index.css';
 
 class ProfilePage extends Component {
-
-  filterLearner (githubHandle) {
-    return this.props.guild.learners.filter(learner => learner.github_handle === githubHandle);
+  filterLearner(githubHandle) {
+    return this.props.guild.learners.filter(
+      learner => learner.github_handle === githubHandle);
   }
 
   render() {
     const githubHandle = this.props.match.url.replace(/\/learners\//, '');
     const selectedLearner = this.filterLearner(githubHandle)[0];
+    const linkedinLink = `https://www.linkedin.com/in/${selectedLearner.linkedin_profile}`;
     return (
       <div>
         <TalentNavbar />
         { selectedLearner ? (
           <div className="container">
-            <div className="header-img"></div>
+            <div className="header-img" />
             <div className="projects">
               <span className="projects-profile-title">PROJECTS</span>
               <div className="projects-image-container">
@@ -34,17 +35,24 @@ class ProfilePage extends Component {
               github_handle={selectedLearner.github_handle}
               linkedin_profile={selectedLearner.linkedin_profile}
               twitter={selectedLearner.twitter}
-              info={selectedLearner} />
+              info={selectedLearner}
+            />
             <div className="profile-info">
               <div className="profile-experiences">
-                <List type='projects' elements={selectedLearner.experience} />
+                <List
+                  type="projects"
+                  elements={selectedLearner.experience}
+                />
               </div>
               <div className="profile-skills">
-                <List type='skills' elements={selectedLearner.skills} />
+                <List
+                  type="skills"
+                  elements={selectedLearner.skills}
+                />
               </div>
             </div>
             <div className="row flex-center">
-              <a href={`http://www.linkedin.com/in/${selectedLearner.linkedin_profile}`} target="__blank" >
+              <a href={linkedinLink} target="_blank" >
                 <button className="hire-learner-button">
                   HIRE {selectedLearner.name.split(' ')[0]} TODAY
                 </button>
@@ -52,7 +60,7 @@ class ProfilePage extends Component {
             </div>
           </div>) : (<Redirect to="/PageNotFound" />) }
       </div>
-  );
+    );
   }
 }
 
